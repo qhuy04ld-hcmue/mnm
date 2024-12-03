@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Nhập Bài Viết</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .result img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Nhập thông tin bài viết</h2>
+        <form id="postForm">
+            <label for="title">Tên bài viết:</label><br>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="description">Mô tả bài viết:</label><br>
+            <input type="text" id="description" name="description" required><br><br>
+
+            <label for="content">Nội dung bài viết:</label><br>
+            <textarea id="content" name="content" rows="4" required></textarea><br><br>
+
+            <label for="date">Ngày đăng:</label><br>
+            <input type="date" id="date" name="date" required><br><br>
+
+            <label for="image">Chọn ảnh:</label><br>
+            <input type="file" id="image" name="image" accept="image/*" required><br><br>
+
+            <button type="button" onclick="addPost()">Thêm bài viết</button>
+        </form>
+    </div>
+
+    <div id="resultContainer"></div>
+
+    <script>
+        function addPost() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const content = document.getElementById('content').value;
+            const date = document.getElementById('date').value;
+            const image = document.getElementById('image').files[0];
+
+            if (title && description && content && date && image) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const resultContainer = document.getElementById('resultContainer');
+                    const postDiv = document.createElement('div');
+                    postDiv.classList.add('result');
+
+                    postDiv.innerHTML = `
+                        <h3>${title}</h3>
+                        <p><strong>Mô tả:</strong> ${description}</p>
+                        <p><strong>Nội dung:</strong> ${content}</p>
+                        <p><strong>Ngày đăng:</strong> ${date}</p>
+                        <img src="${e.target.result}" alt="Ảnh bài viết">
+                    `;
+
+                    resultContainer.appendChild(postDiv);
+                };
+
+                reader.readAsDataURL(image);
+            } else {
+                alert('Vui lòng điền đầy đủ thông tin.');
+            }
+        }
+    </script>
+</body>
+</html>

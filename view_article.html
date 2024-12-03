@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Bài Viết</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .article {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            margin-bottom: 15px;
+        }
+        .article:last-child {
+            border-bottom: none;
+        }
+        .article img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+        .article-info {
+            flex-grow: 1;
+        }
+        .article-info h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .article-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .details-button {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .details-button:hover {
+            background-color: #0056b3;
+        }
+        .details-section {
+            display: none;
+            margin-top: 15px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Danh Sách Bài Viết</h1>
+        <div id="articles"></div>
+    </div>
+
+    <script>
+        function displayArticles() {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const articlesContainer = document.getElementById('articles');
+
+            if (posts.length === 0) {
+                articlesContainer.innerHTML = '<p>Chưa có bài viết nào.</p>';
+                return;
+            }
+
+            posts.forEach((post, index) => {
+                const articleDiv = document.createElement('div');
+                articleDiv.classList.add('article');
+
+                const img = document.createElement('img');
+                img.src = post.imageURL;
+                img.alt = 'Ảnh bài viết';
+
+                const infoDiv = document.createElement('div');
+                infoDiv.classList.add('article-info');
+                infoDiv.innerHTML = `
+                    <h2>${post.title}</h2>
+                    <p><strong>Mô tả:</strong> ${post.description}</p>
+                    <p><strong>Nội dung:</strong> ${post.content}</p>
+                    <p><strong>Ngày đăng:</strong> ${post.date}</p>
+                `;
+
+                const detailsButton = document.createElement('button');
+                detailsButton.classList.add('details-button');
+                detailsButton.textContent = 'Xem chi tiết';
+                detailsButton.onclick = function() {
+                    // Ẩn nút và hiển thị chi tiết bài viết
+                    detailsButton.style.display = 'none';
+                    infoDiv.style.display = 'block';
+                };
+
+                // Chỉ hiển thị chi tiết bài viết khi nút "Xem chi tiết" được nhấn
+                infoDiv.style.display = 'none';
+
+                articleDiv.appendChild(img);
+                articleDiv.appendChild(infoDiv);
+                articleDiv.appendChild(detailsButton);
+
+                articlesContainer.appendChild(articleDiv);
+            });
+        }
+
+        displayArticles();
+    </script>
+</body>
+</html>
