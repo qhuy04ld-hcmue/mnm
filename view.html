@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Articles</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        .article { border-bottom: 1px solid #ccc; padding: 10px 0; }
+        .article img { max-width: 100%; height: auto; }
+        .article h2 { margin: 0 0 10px; }
+        .article p { margin: 0 0 10px; }
+        .details { display: none; }
+        .btn { padding: 10px 15px; background-color: #007bff; color: #fff; border: none; cursor: pointer; }
+        .btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Articles</h1>
+        <div id="articles">
+            <!-- Articles will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('articles.json')
+                .then(response => response.json())
+                .then(articles => {
+                    const articlesContainer = document.getElementById('articles');
+                    articles.forEach(article => {
+                        const articleElement = document.createElement('div');
+                        articleElement.classList.add('article');
+                        articleElement.innerHTML = `
+                            <h2>${article.title}</h2>
+                            <p>${article.description}</p>
+                            <button class="btn" onclick="toggleDetails(${article.id})">View Details</button>
+                            <div id="details-${article.id}" class="details">
+                                <p>${article.content}</p>
+                                <p><strong>Date:</strong> ${article.date}</p>
+                                <img src="${article.image}" alt="${article.title}">
+                            </div>
+                        `;
+                        articlesContainer.appendChild(articleElement);
+                    });
+                });
+        });
+
+        function toggleDetails(id) {
+            const details = document.getElementById(`details-${id}`);
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Articles</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .article { border-bottom: 1px solid #ccc; padding: 10px 0; }
+        .article img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Articles</h1>
+        <div id="articles">
+        --> <!-- Articles will be displayed here --> <!--
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('articles.json')
+                .then(response => response.json())
+                .then(articles => {
+                    const articlesContainer = document.getElementById('articles');
+                    articles.forEach(article => {
+                        const articleElement = document.createElement('div');
+                        articleElement.classList.add('article');
+                        articleElement.innerHTML = `
+                            <h2>${article.title}</h2>
+                            <p>${article.description}</p>
+                            <p>${article.content}</p>
+                            <p><strong>Date:</strong> ${article.date}</p>
+                            <img src="${article.image}" alt="${article.title}">
+                        `;
+                        articlesContainer.appendChild(articleElement);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
+-->

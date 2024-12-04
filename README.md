@@ -1,3 +1,31 @@
+cách run project:
+copy 4 file: add.html, view.html, upload.php, article.json vào trong C:\xampp\htdocs\myproject
+để 2 file html dạng url nếu muốn liên kết: 
+http://localhost/myproject/add.html
+http://localhost/myproject/view.html
+Bật xampp: run MySQl , Apache lên
+bash:
+npm start
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 TypeScipt
 ReactJS
 PHP
