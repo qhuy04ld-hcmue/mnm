@@ -5,6 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Article</title>
     <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f7f9fc; /* Light background */
+            margin: 0;
+            padding: 0;
+            color: #333;
+            font-size: 18px; /* Tăng cỡ chữ chung */
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em; /* Tăng cỡ chữ tiêu đề */
+            color: #0277bd; /* Vibrant blue color */
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.2em; /* Tăng cỡ chữ nhãn */
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1em; /* Tăng cỡ chữ trong input và textarea */
+        }
+        input:focus, textarea:focus {
+            border-color: #0288d1;
+            box-shadow: 0 0 5px rgba(2, 136, 209, 0.5);
+            outline: none;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 1.2em; /* Tăng cỡ chữ nút */
+            color: #fff;
+            background-color: #0288d1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #01579b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Article</h1>
+        <form id="addArticleForm" action="upload.php" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            <button type="submit">Add Article</button>
+            <button type="button" onclick="deleteArticle()">Delete Article</button>
+            <button type="button" onclick="viewArticles()">View Articles</button>
+        </form>
+    </div>
+
+    <script>
+        function deleteArticle() {
+            const articleTitle = prompt('Enter the title of the article to delete:');
+            if (articleTitle) {
+                fetch('upload.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ action: 'delete', title: articleTitle })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                });
+            }
+        }
+
+        function viewArticles() {
+            window.location.href = "http://localhost/myproject/view.html";
+        }
+    </script>
+</body>
+</html>
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Article</title>
+    <style>
         body { font-family: Arial, sans-serif; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         .form-group { margin-bottom: 15px; }
@@ -67,6 +190,7 @@
     </script>
 </body>
 </html>
+-->
 <!--
 <!DOCTYPE html>
 <html lang="en">

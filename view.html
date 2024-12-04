@@ -5,29 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Articles</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-        .article { border-bottom: 1px solid #ccc; padding: 10px 0; }
-        .article img { max-width: 100%; height: auto; }
-        .article h2 { margin: 0 0 10px; }
-        .article p { margin: 0 0 10px; }
-        .details { display: none; }
-        .btn { padding: 10px 15px; background-color: #007bff; color: #fff; border: none; cursor: pointer; }
-        .btn:hover { background-color: #0056b3; }
-        iframe {
-            width: 100%;
-            height: 100vh; /* Chiều cao chiếm toàn bộ màn hình */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+        .articles-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .article {
+            flex: 1 1 calc(33.333% - 20px);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .article img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .article h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #00796b;
+        }
+        .article p {
+            margin: 0 0 15px;
+            font-size: 1em;
+            color: #555;
+        }
+        .btn {
+            padding: 10px 15px;
+            background-color: #0288d1;
+            color: #fff;
             border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            align-self: flex-start;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn:hover {
+            background-color: #01579b;
+            transform: scale(1.05);
+        }
+        .details {
+            display: none;
+            background-color: #f9fbe7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
-    <h1>Trang chính</h1>
-    <iframe src="http://localhost:5174/"></iframe>
+    <iframe src="http://localhost:5173/" width="600" height="400" style="border: 1px solid black;"></iframe>
     <br />
     <div class="container">
-        <h1>Articles</h1>
-        <div id="articles">
+        <h1 style="text-align: center; font-size: 2.5em; color: #00695c; margin-bottom: 30px;">Articles</h1>
+        <div class="articles-row" id="articles">
             <!-- Articles will be displayed here -->
         </div>
     </div>
@@ -42,13 +96,13 @@
                         const articleElement = document.createElement('div');
                         articleElement.classList.add('article');
                         articleElement.innerHTML = `
+                            <img src="${article.image}" alt="${article.title}">
                             <h2>${article.title}</h2>
                             <p>${article.description}</p>
                             <button class="btn" onclick="toggleDetails(${article.id})">View Details</button>
                             <div id="details-${article.id}" class="details">
                                 <p>${article.content}</p>
                                 <p><strong>Date:</strong> ${article.date}</p>
-                                <img src="${article.image}" alt="${article.title}">
                             </div>
                         `;
                         articlesContainer.appendChild(articleElement);
@@ -67,6 +121,9 @@
     </script>
 </body>
 </html>
+
+
+
 <!--
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +150,9 @@
     <div class="container">
         <h1>Articles</h1>
         <div id="articles">
-            <!-- Articles will be displayed here -->
+        -->
+            <!--  Articles will be displayed here --> 
+            <!--
         </div>
     </div>
 
